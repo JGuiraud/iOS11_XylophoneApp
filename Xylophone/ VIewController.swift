@@ -4,15 +4,21 @@ import AVFoundation
 class ViewController: UIViewController, AVAudioPlayerDelegate {
     
     var audioPlayer: AVAudioPlayer!
+    let soundArray = ["note1", "note2", "note3", "note4", "note5", "note6", "note7"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
     @IBAction func notePressed(_ sender: UIButton) {
-
-        let soundURL = Bundle.main.url(forResource: "note1", withExtension: "wav")
-
+        
+        let selectedSoundFileName: String = soundArray[sender.tag-1]
+        playSound(note: selectedSoundFileName)
+    }
+    
+    func playSound(note: String){
+        let soundURL = Bundle.main.url(forResource: note, withExtension: "wav")
+        
         do {
             try audioPlayer = AVAudioPlayer(contentsOf: soundURL!)
         } catch {
@@ -20,23 +26,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
         }
         
         audioPlayer.play()
-        
-//        switch sender.tag {
-//        case 1:
-//            print("note 1")
-//        case 2:
-//            print("note 2")
-//        case 3:
-//            print("note 3")
-//        case 4:
-//            print("note 4")
-//        case 5:
-//            print("note 5")
-//        case 6:
-//            print("note 6")
-//        default:
-//            print("note 7")
-//        }
     }
 
 }
